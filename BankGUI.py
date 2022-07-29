@@ -1,4 +1,6 @@
 from tkinter import *
+from tkinter import messagebox
+from Bank import Bank
 
 class BankGUI:
 
@@ -34,7 +36,7 @@ class BankGUI:
         self.__password_login = Entry(self.__frame, font=('Times new Roman', 20))
         self.__password_login.grid(row=2, column=1, pady=20, padx=(0, 20))
 
-        self.__login_button = Button(self.__frame, text='Log in', font=('Times new Roman', 12, 'bold'), bg='#E6FFFF', activebackground='#E6FFFF')
+        self.__login_button = Button(self.__frame, text='Log in', font=('Times new Roman', 12, 'bold'), bg='#E6FFFF', activebackground='#E6FFFF', command=lambda: Bank(self.__username_login.get(), self.__password_login.get(), self.__window).log_in())
         self.__login_button.grid(row=3, column=0, columnspan=2, pady=(0, 20))
 
         self.__sign_button = Button(self.__frame, text='Sign Up!', font=('Times new Roman', 12, 'bold'), bg='#E6FFFF', activebackground='#E6FFFF', command=self.__build_signup)
@@ -70,5 +72,10 @@ class BankGUI:
         self.__repeat_password = Entry(self.__signup_frame, font=('Times new Roman', 20))
         self.__repeat_password.grid(row=3, column=1, padx=(0, 20))
 
-        self.__signup = Button(self.__signup_frame, text='Sign Up!', font=('Times new Roman', 12, 'bold'), width=15, bg='#FFFEE6', activebackground='#FFFEE6')
+        self.__signup = Button(
+            self.__signup_frame, 
+            text='Sign Up!', font=('Times new Roman', 12, 'bold'), 
+            width=15, bg='#FFFEE6', 
+            activebackground='#FFFEE6', 
+            command=lambda: Bank(self.__username_signup.get(), self.__password_signup.get(), self.__new_window).sign_up() if self.__password_signup.get() == self.__repeat_password.get() and self.__username_signup.get() != '' and self.__password_signup.get() != '' else messagebox.showerror('Error', 'Please enter all fields or match the passwords!'))
         self.__signup.grid(row=4, column=0, columnspan=2, pady=20)
