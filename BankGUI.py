@@ -33,7 +33,7 @@ class BankGUI:
         self.__password_label_login = Label(self.__frame, text='Password:', font=('Times new Roman', 20, 'bold'), bg='#000', fg='#fff')
         self.__password_label_login.grid(row=2, column=0, padx=(20, 0))
 
-        self.__password_login = Entry(self.__frame, font=('Times new Roman', 20))
+        self.__password_login = Entry(self.__frame, font=('Times new Roman', 20), show='*')
         self.__password_login.grid(row=2, column=1, pady=20, padx=(0, 20))
 
         self.__login_button = Button(self.__frame, text='Log in', font=('Times new Roman', 12, 'bold'), bg='#E6FFFF', activebackground='#E6FFFF', command=lambda: Bank(self.__username_login.get(), self.__password_login.get(), self.__window).log_in())
@@ -63,13 +63,13 @@ class BankGUI:
         self.__password_label_signup = Label(self.__signup_frame, text='Password:', font=('Times new Roman', 20, 'bold'), bg='#000', fg='#fff')
         self.__password_label_signup.grid(row=2, column=0, padx=(20, 0))
 
-        self.__password_signup = Entry(self.__signup_frame, font=('Times new Roman', 20))
+        self.__password_signup = Entry(self.__signup_frame, font=('Times new Roman', 20), show='*')
         self.__password_signup.grid(row=2, column=1, padx=(0, 20), pady=20)
 
         self.__repeat_password_label = Label(self.__signup_frame, text='Repeat password:', font=('Times new Roman', 20, 'bold'), bg='#000', fg='#fff')
         self.__repeat_password_label.grid(row=3, column=0, padx=(20, 0))
 
-        self.__repeat_password = Entry(self.__signup_frame, font=('Times new Roman', 20))
+        self.__repeat_password = Entry(self.__signup_frame, font=('Times new Roman', 20), show='*')
         self.__repeat_password.grid(row=3, column=1, padx=(0, 20))
 
         self.__signup = Button(
