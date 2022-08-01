@@ -18,7 +18,6 @@ class Bank:
     def log_in(self):
         for i in User.all:
             if self.__username == i[0] and self.__password == i[1]:
-                messagebox.showinfo('Welcome', f'Welcome to your bank.py account {self.__username}')
-                return
+                self.__window.destroy()
+                return True
         
-        messagebox.showerror('Wrong credentials', 'Wrong username or password, please try again!')

@@ -5,13 +5,18 @@ from Bank import Bank
 class BankGUI:
 
     def __init__(self, title: str, reswid: bool, reshei: bool, geometry='no'):
+        self.__title = title
+        self.__reswid = reswid
+        self.__reshei = reshei
+        self.__geometry = geometry
+        
         self.__window = Tk()
-        self.__window.title(title)
-        self.__window.resizable(reswid, reshei)
-        if geometry == 'no':
+        self.__window.title(self.__title)
+        self.__window.resizable(self.__reswid, self.__reshei)
+        if self.__geometry == 'no':
             pass
         else:
-            self.__window.geometry(geometry)
+            self.__window.geometry(self.__geometry)
         self.__build_interface(self.__window)
 
         self.__window.mainloop()
@@ -36,7 +41,7 @@ class BankGUI:
         self.__password_login = Entry(self.__frame, font=('Times new Roman', 20), show='*')
         self.__password_login.grid(row=2, column=1, pady=20, padx=(0, 20))
 
-        self.__login_button = Button(self.__frame, text='Log in', font=('Times new Roman', 12, 'bold'), bg='#E6FFFF', activebackground='#E6FFFF', command=lambda: Bank(self.__username_login.get(), self.__password_login.get(), self.__window).log_in())
+        self.__login_button = Button(self.__frame, text='Log in', font=('Times new Roman', 12, 'bold'), bg='#E6FFFF', activebackground='#E6FFFF', command=lambda: self.__build_bank() if Bank(self.__username_login.get(), self.__password_login.get(), self.__window).log_in() else messagebox.showerror('Wrong credentials', 'Wrong username or password, please try again!'))
         self.__login_button.grid(row=3, column=0, columnspan=2, pady=(0, 20))
 
         self.__sign_button = Button(self.__frame, text='Sign Up!', font=('Times new Roman', 12, 'bold'), bg='#E6FFFF', activebackground='#E6FFFF', command=self.__build_signup)
@@ -45,8 +50,12 @@ class BankGUI:
 
     def __build_signup(self):
         self.__new_window = Toplevel()
-        self.__new_window.title('Sign Up!')
-        self.__new_window.resizable(FALSE, FALSE)
+        self.__new_window.title(self.__title)
+        self.__new_window.resizable(self.__reswid, self.__reshei)
+        if self.__geometry == 'no':
+            pass
+        else:
+            self.__new_window.geometry(self.__geometry)
 
         self.__signup_frame = Frame(self.__new_window, bg='#000')
         self.__signup_frame.pack(expand=True)
@@ -79,3 +88,22 @@ class BankGUI:
             activebackground='#FFFEE6', 
             command=lambda: Bank(self.__username_signup.get(), self.__password_signup.get(), self.__new_window).sign_up() if self.__password_signup.get() == self.__repeat_password.get() and self.__username_signup.get() != '' and self.__password_signup.get() != '' else messagebox.showerror('Error', 'Please enter all fields or match the passwords!'))
         self.__signup.grid(row=4, column=0, columnspan=2, pady=20)
+
+
+    def __build_bank(self):
+        self.__bank_window = Tk()
+        self.__bank_window.title(self.__title)
+        self.__bank_window.resizable(self.__reswid, self.__reshei)
+        if self.__geometry == 'no':
+            pass
+        else:
+            self.__bank_window.geometry(self.__geometry)
+
+        self.__bank_frame = Frame(self.__bank_window)
+        self.__bank_frame.pack()
+
+        self.__bank_label = Label(self.__bank_frame, text=f'Welcome')
+        self.__bank_label.grid(row=0, column=0)
+
+
+        self.__bank_window.mainloop()
