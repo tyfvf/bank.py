@@ -99,11 +99,26 @@ class BankGUI:
         else:
             self.__bank_window.geometry(self.__geometry)
 
-        self.__bank_frame = Frame(self.__bank_window)
+        self.__bank_frame = Frame(self.__bank_window, bg='#000')
         self.__bank_frame.pack()
 
-        self.__bank_label = Label(self.__bank_frame, text=f'Welcome')
-        self.__bank_label.grid(row=0, column=0)
+        self.__bank_label = Label(self.__bank_frame, text=f'Welcome', font=('Times new Roman', 26, 'bold'), bg='#000', fg='#13e305')
+        self.__bank_label.grid(row=0, column=0, columnspan=2, padx=20, pady=20)
+
+        self.__bank_deposit = Button(self.__bank_frame, text='Deposit', font=('Times new Roman', 12, 'bold'), width=10)
+        self.__bank_deposit.grid(row=1, column=0, padx=20, pady=20)
+
+        self.__bank_transfer = Button(self.__bank_frame, text='Transfer', font=('Times new Roman', 12, 'bold'), width=10)
+        self.__bank_transfer.grid(row=1, column=1, padx=20, pady=20)
+
+        self.__bank_withdraw = Button(self.__bank_frame, text='Withdraw', font=('Times new Roman', 12, 'bold'), width=10)
+        self.__bank_withdraw.grid(row=2, column=0, padx=20, pady=20)
+
+        self.__bank_statment = Button(self.__bank_frame, text='Statment', font=('Times new Roman', 12, 'bold'), width=10)
+        self.__bank_statment.grid(row=2, column=1, padx=20, pady=20)
+
+        self.__bank_quit = Button(self.__bank_frame, text='Quit', font=('Times new Roman', 12, 'bold'), bg='#de1818', activebackground='#de1818', border=0, width=10, command=quit)
+        self.__bank_quit.grid(row=3, column=0, columnspan=2, padx=20, pady=20)
 
 
         self.__bank_window.mainloop()
