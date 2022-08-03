@@ -10,6 +10,10 @@ class BankGUI:
         self.__reshei = reshei
         self.__geometry = geometry
         
+        self.__build_interface()
+
+
+    def __build_interface(self):
         self.__window = Tk()
         self.__window.title(self.__title)
         self.__window.resizable(self.__reswid, self.__reshei)
@@ -17,13 +21,8 @@ class BankGUI:
             pass
         else:
             self.__window.geometry(self.__geometry)
-        self.__build_interface(self.__window)
 
-        self.__window.mainloop()
-
-
-    def __build_interface(self, window):
-        self.__frame = Frame(window, bg='#000')
+        self.__frame = Frame(self.__window, bg='#000')
         self.__frame.pack(expand=True)
 
         self.__label_welcome = Label(self.__frame, text='Welcome to Bank.py', font=('Times new Roman', 26, 'bold'), fg='#0266f2', bg='#000')
@@ -46,6 +45,8 @@ class BankGUI:
 
         self.__sign_button = Button(self.__frame, text='Sign Up!', font=('Times new Roman', 12, 'bold'), bg='#E6FFFF', activebackground='#E6FFFF', command=self.__build_signup)
         self.__sign_button.grid(row=3, column=1, pady=(0, 20))
+
+        self.__window.mainloop()
 
 
     def __build_signup(self):
@@ -118,11 +119,16 @@ class BankGUI:
         self.__bank_statment = Button(self.__bank_frame, text='Statment', font=('Times new Roman', 12, 'bold'), width=10, command=lambda: self.__build_statment(username))
         self.__bank_statment.grid(row=2, column=1, padx=20, pady=20)
 
-        self.__bank_quit = Button(self.__bank_frame, text='Quit', font=('Times new Roman', 12, 'bold'), bg='#de1818', activebackground='#de1818', border=0, width=10, command=quit)
+        self.__bank_quit = Button(self.__bank_frame, text='Quit', font=('Times new Roman', 12, 'bold'), bg='#de1818', activebackground='#de1818', border=0, width=10, command=lambda: self.relogin(self.__bank_window))
         self.__bank_quit.grid(row=3, column=0, columnspan=2, padx=20, pady=20)
 
 
         self.__bank_window.mainloop()
+
+
+    def relogin(self, window):
+        window.destroy()
+        self.__build_interface()
 
 
     def __build_deposit(self, username):
