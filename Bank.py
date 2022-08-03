@@ -69,6 +69,30 @@ class Bank:
             return messagebox.showerror('ERROR', 'Please enter a valid number (if the number you are putting in is a decimal, please instead of using comma use a dot, thanks)')
 
 
+    def withdraw(self):
+        try:
+
+            number = float(self.__money)
+            if number <= 0:
+                return messagebox.showerror('ERROR', 'Please enter a valid number')
+            else:
+                wk = load_workbook('users.xlsx')
+                sheet = wk.active
+
+                for cell in sheet['A']:
+                    if cell.value == self.__username:
+                        if number > sheet[f'C{cell.row}'].value:
+                            return messagebox.showerror('Error!', 'Can not withdraw more than your account have! Please enter a lower number')
+                        sheet[f'C{cell.row}'].value -= number
+                
+                wk.save('users.xlsx')
+                messagebox.showinfo('Sucess!', 'Value withdrew with sucess!')
+                self.__window.destroy()
+
+        except ValueError:
+            return messagebox.showerror('ERROR', 'Please enter a valid number (if the number you are putting in is a decimal, please instead of using comma use a dot, thanks)')
+
+
     def statment(self):
         wk = load_workbook('users.xlsx')
         sheet = wk.active

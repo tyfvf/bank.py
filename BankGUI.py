@@ -112,7 +112,7 @@ class BankGUI:
         self.__bank_transfer = Button(self.__bank_frame, text='Transfer', font=('Times new Roman', 12, 'bold'), width=10)
         self.__bank_transfer.grid(row=1, column=1, padx=20, pady=20)
 
-        self.__bank_withdraw = Button(self.__bank_frame, text='Withdraw', font=('Times new Roman', 12, 'bold'), width=10)
+        self.__bank_withdraw = Button(self.__bank_frame, text='Withdraw', font=('Times new Roman', 12, 'bold'), width=10, command=lambda: self.__build_withdraw(username))
         self.__bank_withdraw.grid(row=2, column=0, padx=20, pady=20)
 
         self.__bank_statment = Button(self.__bank_frame, text='Statment', font=('Times new Roman', 12, 'bold'), width=10, command=lambda: self.__build_statment(username))
@@ -145,6 +145,28 @@ class BankGUI:
 
         self.__deposit_button = Button(self.__deposit_frame, text='Deposit', font=('Times new Roman', 12, 'bold'), command=lambda: Bank(username, self.__deposit_window, money=self.__deposit_money.get()).deposit() if self.__deposit_money.get() != '' else messagebox.showerror('No value found', 'Please enter a value on the field'))
         self.__deposit_button.grid(row=2, column=0, padx=20, pady=20)
+
+
+    def __build_withdraw(self,username):
+        self.__withdraw_window = Toplevel()
+        self.__withdraw_window.title(self.__title)
+        self.__withdraw_window.resizable(self.__reswid, self.__reshei)
+        if self.__geometry == 'no':
+            pass
+        else:
+            self.__withdraw_window.geometry(self.__geometry)
+
+        self.__withdraw_frame = Frame(self.__withdraw_window, bg='#000')
+        self.__withdraw_frame.pack()
+
+        self.__withdraw_label = Label(self.__withdraw_frame, text='Enter how much you want to withdraw from your account', font=('Times new Roman', 26, 'bold'), bg='#000', fg='#0266f2')
+        self.__withdraw_label.grid(row=0, column=0, padx=20, pady=20)
+
+        self.__withdraw_money = Entry(self.__withdraw_frame, font=('Times new Roman', 20))
+        self.__withdraw_money.grid(row=1, column=0, padx=20, pady=20)
+
+        self.__withdraw_button = Button(self.__withdraw_frame, text='Withdraw', font=('Times new Roman', 12, 'bold'), command=lambda: Bank(username, self.__withdraw_window, money=self.__withdraw_money.get()).withdraw() if self.__withdraw_money.get() != '' else messagebox.showerror('No value found', 'Please enter a value on the field'))
+        self.__withdraw_button.grid(row=2, column=0, padx=20, pady=20)
 
 
     def __build_statment(self, username):
