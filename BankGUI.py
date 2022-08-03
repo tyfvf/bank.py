@@ -41,7 +41,7 @@ class BankGUI:
         self.__password_login = Entry(self.__frame, font=('Times new Roman', 20), show='*')
         self.__password_login.grid(row=2, column=1, pady=20, padx=(0, 20))
 
-        self.__login_button = Button(self.__frame, text='Log in', font=('Times new Roman', 12, 'bold'), bg='#E6FFFF', activebackground='#E6FFFF', command=lambda: self.__build_bank(self.__username_login.get()) if Bank(self.__username_login.get(), self.__password_login.get(), self.__window).log_in() else messagebox.showerror('Wrong credentials', 'Wrong username or password, please try again!'))
+        self.__login_button = Button(self.__frame, text='Log in', font=('Times new Roman', 12, 'bold'), bg='#E6FFFF', activebackground='#E6FFFF', command=lambda: self.__build_bank(self.__username_login.get()) if Bank(self.__username_login.get(), self.__window, self.__password_login.get()).log_in() else messagebox.showerror('Wrong credentials', 'Wrong username or password, please try again!'))
         self.__login_button.grid(row=3, column=0, columnspan=2, pady=(0, 20))
 
         self.__sign_button = Button(self.__frame, text='Sign Up!', font=('Times new Roman', 12, 'bold'), bg='#E6FFFF', activebackground='#E6FFFF', command=self.__build_signup)
@@ -86,7 +86,7 @@ class BankGUI:
             text='Sign Up!', font=('Times new Roman', 12, 'bold'), 
             width=15, bg='#FFFEE6', 
             activebackground='#FFFEE6', 
-            command=lambda: Bank(self.__username_signup.get(), self.__password_signup.get(), self.__new_window).sign_up() if self.__password_signup.get() == self.__repeat_password.get() and self.__username_signup.get() != '' and self.__password_signup.get() != '' else messagebox.showerror('Error', 'Please enter all fields or match the passwords!'))
+            command=lambda: Bank(self.__username_signup.get(), self.__new_window, self.__password_signup.get()).sign_up() if self.__password_signup.get() == self.__repeat_password.get() and self.__username_signup.get() != '' and self.__password_signup.get() != '' else messagebox.showerror('Error', 'Please enter all fields or match the passwords!'))
         self.__signup.grid(row=4, column=0, columnspan=2, pady=20)
 
 
@@ -106,7 +106,7 @@ class BankGUI:
         self.__bank_label = Label(self.__bank_frame, text=f'Welcome {username}', font=('Times new Roman', 26, 'bold'), bg='#000', fg='#13e305')
         self.__bank_label.grid(row=0, column=0, columnspan=2, padx=20, pady=20)
 
-        self.__bank_deposit = Button(self.__bank_frame, text='Deposit', font=('Times new Roman', 12, 'bold'), width=10, command=self.__build_deposit)
+        self.__bank_deposit = Button(self.__bank_frame, text='Deposit', font=('Times new Roman', 12, 'bold'), width=10, command=lambda: self.__build_deposit(username))
         self.__bank_deposit.grid(row=1, column=0, padx=20, pady=20)
 
         self.__bank_transfer = Button(self.__bank_frame, text='Transfer', font=('Times new Roman', 12, 'bold'), width=10)
@@ -125,7 +125,7 @@ class BankGUI:
         self.__bank_window.mainloop()
 
 
-    def __build_deposit(self):
+    def __build_deposit(self, username):
         self.__deposit_window = Toplevel()
         self.__deposit_window.title(self.__title)
         self.__deposit_window.resizable(self.__reswid, self.__reshei)
@@ -143,5 +143,5 @@ class BankGUI:
         self.__deposit_money = Entry(self.__deposit_frame, font=('Times new Roman', 20))
         self.__deposit_money.grid(row=1, column=0, padx=20, pady=20)
 
-        self.__deposit_button = Button(self.__deposit_frame, text='Deposit', font=('Times new Roman', 12, 'bold'))
+        self.__deposit_button = Button(self.__deposit_frame, text='Deposit', font=('Times new Roman', 12, 'bold'), command=lambda: Bank(username, self.__deposit_window, money=self.__deposit_money.get()).deposit() if self.__deposit_money.get() != '' else messagebox.showerror('No value found', 'Please enter a value on the field'))
         self.__deposit_button.grid(row=2, column=0, padx=20, pady=20)

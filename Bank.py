@@ -3,7 +3,7 @@ from openpyxl import load_workbook
 
 class Bank:
 
-    def __init__(self, username: str, password: str, window, money=0):
+    def __init__(self, username: str, window, password = '', money=0):
         self.__window = window
         self.__username = username
         self.__password = password
@@ -45,4 +45,26 @@ class Bank:
                 return True
             
         return False
+
+
+    def deposit(self):
+        try:
+
+            number = float(self.__money)
+            if number <= 0:
+                return messagebox.showerror('ERROR', 'Please enter a valid number')
+            else:
+                wk = load_workbook('users.xlsx')
+                sheet = wk.active
+
+                for cell in sheet['A']:
+                    if cell.value == self.__username:
+                        sheet[f'C{cell.row}'].value += number
+                
+                wk.save('users.xlsx')
+                messagebox.showinfo('Sucess!', 'Value deposited with sucess!')
+                self.__window.destroy()
+
+        except ValueError:
+            return messagebox.showerror('ERROR', 'Please enter a valid number (if the number you are putting in is a decimal, please instead of using comma use a dot, thanks)')
         
