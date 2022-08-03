@@ -115,7 +115,7 @@ class BankGUI:
         self.__bank_withdraw = Button(self.__bank_frame, text='Withdraw', font=('Times new Roman', 12, 'bold'), width=10)
         self.__bank_withdraw.grid(row=2, column=0, padx=20, pady=20)
 
-        self.__bank_statment = Button(self.__bank_frame, text='Statment', font=('Times new Roman', 12, 'bold'), width=10)
+        self.__bank_statment = Button(self.__bank_frame, text='Statment', font=('Times new Roman', 12, 'bold'), width=10, command=lambda: self.__build_statment(username))
         self.__bank_statment.grid(row=2, column=1, padx=20, pady=20)
 
         self.__bank_quit = Button(self.__bank_frame, text='Quit', font=('Times new Roman', 12, 'bold'), bg='#de1818', activebackground='#de1818', border=0, width=10, command=quit)
@@ -145,3 +145,19 @@ class BankGUI:
 
         self.__deposit_button = Button(self.__deposit_frame, text='Deposit', font=('Times new Roman', 12, 'bold'), command=lambda: Bank(username, self.__deposit_window, money=self.__deposit_money.get()).deposit() if self.__deposit_money.get() != '' else messagebox.showerror('No value found', 'Please enter a value on the field'))
         self.__deposit_button.grid(row=2, column=0, padx=20, pady=20)
+
+
+    def __build_statment(self, username):
+        self.__statment_window = Toplevel()
+        self.__statment_window.title(self.__title)
+        self.__statment_window.resizable(self.__reswid, self.__reshei)
+        if self.__geometry == 'no':
+            pass
+        else:
+            self.__statment_window.geometry(self.__geometry)
+
+        self.__statment_frame = Frame(self.__statment_window, bg='#000')
+        self.__statment_frame.pack()
+
+        self.__statment_label = Label(self.__statment_frame, text=f'$ {Bank(username, window=self.__statment_window).statment()}', font=('Times new Roman', 40, 'bold'), bg='#000', fg='#fcfc03')
+        self.__statment_label.pack(padx=40, pady=40)

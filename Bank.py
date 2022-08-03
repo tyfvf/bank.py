@@ -67,4 +67,13 @@ class Bank:
 
         except ValueError:
             return messagebox.showerror('ERROR', 'Please enter a valid number (if the number you are putting in is a decimal, please instead of using comma use a dot, thanks)')
+
+
+    def statment(self):
+        wk = load_workbook('users.xlsx')
+        sheet = wk.active
+
+        for cell in sheet['A']:
+            if cell.value == self.__username:
+                return sheet[f'C{cell.row}'].value
         
