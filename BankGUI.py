@@ -106,7 +106,7 @@ class BankGUI:
         self.__bank_label = Label(self.__bank_frame, text=f'Welcome {username}', font=('Times new Roman', 26, 'bold'), bg='#000', fg='#13e305')
         self.__bank_label.grid(row=0, column=0, columnspan=2, padx=20, pady=20)
 
-        self.__bank_deposit = Button(self.__bank_frame, text='Deposit', font=('Times new Roman', 12, 'bold'), width=10)
+        self.__bank_deposit = Button(self.__bank_frame, text='Deposit', font=('Times new Roman', 12, 'bold'), width=10, command=self.__build_deposit)
         self.__bank_deposit.grid(row=1, column=0, padx=20, pady=20)
 
         self.__bank_transfer = Button(self.__bank_frame, text='Transfer', font=('Times new Roman', 12, 'bold'), width=10)
@@ -123,3 +123,25 @@ class BankGUI:
 
 
         self.__bank_window.mainloop()
+
+
+    def __build_deposit(self):
+        self.__deposit_window = Toplevel()
+        self.__deposit_window.title(self.__title)
+        self.__deposit_window.resizable(self.__reswid, self.__reshei)
+        if self.__geometry == 'no':
+            pass
+        else:
+            self.__deposit_window.geometry(self.__geometry)
+
+        self.__deposit_frame = Frame(self.__deposit_window, bg='#000')
+        self.__deposit_frame.pack()
+
+        self.__deposit_label = Label(self.__deposit_frame, text='Enter how much you want to deposit in your account', font=('Times new Roman', 26, 'bold'), bg='#000', fg='#fcfc03')
+        self.__deposit_label.grid(row=0, column=0, padx=20, pady=20)
+
+        self.__deposit_money = Entry(self.__deposit_frame, font=('Times new Roman', 20))
+        self.__deposit_money.grid(row=1, column=0, padx=20, pady=20)
+
+        self.__deposit_button = Button(self.__deposit_frame, text='Deposit', font=('Times new Roman', 12, 'bold'))
+        self.__deposit_button.grid(row=2, column=0, padx=20, pady=20)
