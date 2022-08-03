@@ -69,6 +69,48 @@ class Bank:
             return messagebox.showerror('ERROR', 'Please enter a valid number (if the number you are putting in is a decimal, please instead of using comma use a dot, thanks)')
 
 
+    def transfer(self, to):
+        try:
+
+            number = float(self.__money)
+            if number <= 0:
+                return messagebox.showerror('ERROR', 'Please enter a valid number')
+            else:
+                wk = load_workbook('users.xlsx')
+                sheet = wk.active
+
+                exist_to = False
+                enough_money = False
+
+                for cell in sheet['A']:
+                    if cell.value == to:
+                        exist_to = True
+                    elif cell.value == self.__username:
+                        if sheet[f'C{cell.row}'].value >= number:
+                            enough_money = True
+
+                if exist_to and enough_money:
+                    for cell in sheet['A']:
+                        if cell.value == self.__username:
+                            sheet[f'C{cell.row}'].value -= number
+                        elif cell.value == to:
+                            sheet[f'C{cell.row}'].value += number
+                elif exist_to and enough_money == False:
+                    return messagebox.showerror('Error!', 'You do not have enough money to make this transaction, please enter a lower number')
+                elif enough_money and exist_to == False:
+                    return messagebox.showerror('Error!', 'This username does not exist, please enter a valid username')
+                else:
+                    return messagebox.showerror('Error!', 'You do not have enough money and this username does not exist')
+
+                
+                wk.save('users.xlsx')
+                messagebox.showinfo('Sucess!', 'Value transfered with sucess!')
+                self.__window.destroy()
+
+        except ValueError:
+            return messagebox.showerror('ERROR', 'Please enter a valid number (if the number you are putting in is a decimal, please instead of using comma use a dot, thanks)')
+
+
     def withdraw(self):
         try:
 

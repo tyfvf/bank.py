@@ -109,7 +109,7 @@ class BankGUI:
         self.__bank_deposit = Button(self.__bank_frame, text='Deposit', font=('Times new Roman', 12, 'bold'), width=10, command=lambda: self.__build_deposit(username))
         self.__bank_deposit.grid(row=1, column=0, padx=20, pady=20)
 
-        self.__bank_transfer = Button(self.__bank_frame, text='Transfer', font=('Times new Roman', 12, 'bold'), width=10)
+        self.__bank_transfer = Button(self.__bank_frame, text='Transfer', font=('Times new Roman', 12, 'bold'), width=10, command=lambda: self.__build_transfer(username))
         self.__bank_transfer.grid(row=1, column=1, padx=20, pady=20)
 
         self.__bank_withdraw = Button(self.__bank_frame, text='Withdraw', font=('Times new Roman', 12, 'bold'), width=10, command=lambda: self.__build_withdraw(username))
@@ -145,6 +145,34 @@ class BankGUI:
 
         self.__deposit_button = Button(self.__deposit_frame, text='Deposit', font=('Times new Roman', 12, 'bold'), command=lambda: Bank(username, self.__deposit_window, money=self.__deposit_money.get()).deposit() if self.__deposit_money.get() != '' else messagebox.showerror('No value found', 'Please enter a value on the field'))
         self.__deposit_button.grid(row=2, column=0, padx=20, pady=20)
+
+
+    def __build_transfer(self, username):
+        self.__transfer_window = Toplevel()
+        self.__transfer_window.title(self.__title)
+        self.__transfer_window.resizable(self.__reswid, self.__reshei)
+        if self.__geometry == 'no':
+            pass
+        else:
+            self.__transfer_window.geometry(self.__geometry)
+
+        self.__transfer_frame = Frame(self.__transfer_window, bg='#000')
+        self.__transfer_frame.pack()
+
+        self.__transfer_label = Label(self.__transfer_frame, text='How much money do you wish to transfer:', font=('Times new Roman', 20, 'bold'), bg='#000', fg='#0266f2')
+        self.__transfer_label.grid(row=0, column=0, padx=20, pady=20)
+
+        self.__transfer_money = Entry(self.__transfer_frame, font=('Times new Roman', 20))
+        self.__transfer_money.grid(row=0, column=1, padx=20, pady=20)
+
+        self.__transfer_label_to = Label(self.__transfer_frame, text='To (enter the username of the person):', font=('Times new Roman', 20, 'bold'), bg='#000', fg='#0266f2')
+        self.__transfer_label_to.grid(row=1, column=0, padx=20, pady=20)
+
+        self.__transfer_to = Entry(self.__transfer_frame, font=('Times new Roman', 20))
+        self.__transfer_to.grid(row=1, column=1, padx=20, pady=20)
+
+        self.__transfer_button = Button(self.__transfer_frame, text='Transfer', font=('Times new Roman', 12, 'bold'), command=lambda: Bank(username, self.__transfer_window, money=self.__transfer_money.get()).transfer(self.__transfer_to.get()) if self.__transfer_money.get() != '' and self.__transfer_to.get() != '' else messagebox.showerror('No value found', 'Please enter a value on all fields'))
+        self.__transfer_button.grid(row=2, column=0, columnspan=2, padx=20, pady=20)
 
 
     def __build_withdraw(self,username):
