@@ -1,5 +1,5 @@
 # bank.py
-A object oriented bank project made in python, with a GUI made in tkinter and excel integration
+A object oriented bank project made in python, with a GUI made in tkinter and excel database instead of common databases
 
 
 ## Functionalities
